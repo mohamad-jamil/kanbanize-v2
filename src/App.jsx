@@ -44,9 +44,9 @@ function App() {
   ]);
 
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <Header />
-      <div className="flex justify-center gap-8 py-8">
+      <div className="flex flex-grow justify-center gap-8 p-8">
         {columns.map((column, index) => (
           <Column
             key={index}
