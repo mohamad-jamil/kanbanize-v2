@@ -5,9 +5,14 @@ export default function Header() {
         <img src="/vite.svg" alt="logo" />
         <h1 className="font-black text-2xl text-black">KanbanizeV2</h1>
       </div>
-      <button className="border px-5 py-2 rounded-full cursor-pointer text-white font-bold bg-[#1868db] hover:bg-[#1868db] transition-all duration-300 ease-in-out">
-        + Add Task
-      </button>
+      <div className="flex gap-4">
+        <button className="border px-5 py-2 rounded-full cursor-pointer text-white font-bold bg-[#1868db] hover:bg-[#1868db] transition-all duration-300 ease-in-out">
+          + Add Column
+        </button>
+        <button className="border px-5 py-2 rounded-full cursor-pointer text-white font-bold bg-[#1868db] hover:bg-[#1868db] transition-all duration-300 ease-in-out">
+          + Add Task
+        </button>
+      </div>
     </header>
   );
 }
