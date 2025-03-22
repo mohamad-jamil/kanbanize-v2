@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "./components/Header";
 import Column from "./components/Column";
@@ -15,36 +15,26 @@ function App() {
     "Done",
   ]);
 
-  const [tasks, setTasks] = useState([
-    {
-      id: "ID-0001",
-      task: "Task 1",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu nisl, hendrerit in bibendum in, finibus in augue.",
-      category: "Backlog",
-    },
-    {
-      id: "ID-0002",
-      task: "Task 2",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu nisl, hendrerit in bibendum in, finibus in augue.",
-      category: "Backlog",
-    },
-    {
-      id: "ID-0003",
-      task: "Task 3",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu nisl, hendrerit in bibendum in, finibus in augue.",
-      category: "Backlog",
-    },
-    {
-      id: "ID-0004",
-      task: "Task 4",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu nisl, hendrerit in bibendum in, finibus in augue.",
-      category: "Backlog",
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  const getTasks = async () => {
+    const res = await fetch("http://localhost:5000/tasks");
+    const resJson = await res.json();
+    console.log(resJson);
+    setTasks(resJson);
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
+  // {
+  //   id: "ID-0001",
+  //   task: "Task 1",
+  //   description:
+  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu nisl, hendrerit in bibendum in, finibus in augue.",
+  //   category: "Backlog",
+  // }
 
   return (
     <>
@@ -55,7 +45,9 @@ function App() {
             <Column
               key={index}
               columnName={column}
-              tasks={tasks.filter((task) => task.category === column)}
+              tasks={tasks.filter(
+                (task) => task.category.toLowerCase() === column.toLowerCase()
+              )}
             />
           ))}
         </div>
