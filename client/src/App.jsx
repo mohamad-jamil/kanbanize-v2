@@ -20,21 +20,12 @@ function App() {
   const getTasks = async () => {
     const res = await fetch("http://localhost:5000/tasks");
     const resJson = await res.json();
-    console.log(resJson);
     setTasks(resJson);
   };
 
   useEffect(() => {
     getTasks();
   }, []);
-
-  // {
-  //   id: "ID-0001",
-  //   task: "Task 1",
-  //   description:
-  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu nisl, hendrerit in bibendum in, finibus in augue.",
-  //   category: "Backlog",
-  // }
 
   return (
     <>
