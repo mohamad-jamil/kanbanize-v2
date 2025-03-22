@@ -10,26 +10,18 @@ export default function AddTaskModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const getId = () => {
-    return "ID-" + (tasks.length + 1).toString().padStart(4, "0");
-  };
-
-  const handleCloseModal = () => {
-    setAddTaskModalOpen(false);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setTasks([
-      ...tasks,
-      {
-        id: getId(),
-        task: title,
-        description: description,
-        category: column,
+  const handleSubmit = async (e) => {
+    await fetch("http://localhost:5000/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    ]);
+      body: JSON.stringify({
+        category: column.toLowerCase(),
+        title: title,
+        description: description,
+      }),
+    });
 
     setAddTaskModalOpen(false);
   };
@@ -39,7 +31,7 @@ export default function AddTaskModal({
       <div className="bg-white w-1/6 rounded-md">
         <div className="flex items-center justify-between p-4">
           <h2 className="font-bold">Add Task</h2>
-          <button onClick={handleCloseModal}>
+          <button onClick={() => setAddTaskModalOpen(false)}>
             <img
               src="/cross.svg"
               alt="close icon"
@@ -56,7 +48,7 @@ export default function AddTaskModal({
             <input
               type="text"
               name="id"
-              value={getId()}
+              // value={getId()}
               disabled
               className="mt-1 p-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
             />
