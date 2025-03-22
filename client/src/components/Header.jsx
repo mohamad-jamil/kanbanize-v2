@@ -10,7 +10,7 @@ export default function Header({ setAddTaskModalOpen }) {
         <h1 className="font-bold text-2xl text-black">KanbanizeV2</h1>
       </div>
       <div className="flex gap-4">
-        <button className="border px-5 py-2 rounded-full cursor-pointer text-white font-bold bg-[#1868db] hover:bg-[#1868db] transition-all duration-300 ease-in-out">
+        <button className="border px-5 py-2 rounded-full cursor-not-allowed text-white font-bold bg-[#1868db] hover:bg-[#1868db] transition-all duration-300 ease-in-out">
           + Add Column
         </button>
         <button

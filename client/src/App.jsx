@@ -48,8 +48,6 @@ function App() {
         <AddTaskModal
           setAddTaskModalOpen={setAddTaskModalOpen}
           columns={columns}
-          tasks={tasks}
-          setTasks={setTasks}
         />
       )}
     </>
