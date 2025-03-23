@@ -7,12 +7,7 @@ const DataContext = createContext({
 
 const DataProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
-  const [columns, setColumns] = useState([
-    "Backlog",
-    "To Do",
-    "In Progress",
-    "Done",
-  ]);
+  const [columns, setColumns] = useState([]);
 
   useEffect(() => {
     const getTasks = async () => {
@@ -21,7 +16,14 @@ const DataProvider = ({ children }) => {
       setTasks(resJson);
     };
 
+    const getColumns = async () => {
+      const res = await fetch("http://localhost:5000/columns");
+      const resJson = await res.json();
+      setColumns(resJson);
+    };
+
     getTasks();
+    getColumns();
   }, []);
 
   return (

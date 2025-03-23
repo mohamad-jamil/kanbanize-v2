@@ -19,9 +19,10 @@ function App() {
           {columns.map((column, index) => (
             <Column
               key={index}
-              columnName={column}
+              columnName={column.category}
               tasks={tasks.filter(
-                (task) => task.category.toLowerCase() === column.toLowerCase()
+                (task) =>
+                  task.category.toLowerCase() === column.category.toLowerCase()
               )}
             />
           ))}
