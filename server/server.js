@@ -88,6 +88,17 @@ app.delete("/tasks/:id", async (req, res) => {
   }
 });
 
+// GET: get all columns
+app.get("/columns", async (req, res) => {
+  try {
+    const response = await pool.query("SELECT * FROM columns ORDER BY id");
+
+    res.json(response.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server is listening on port 5000.");
 });

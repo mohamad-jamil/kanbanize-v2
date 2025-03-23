@@ -7,3 +7,11 @@ CREATE TABLE tasks (
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 );
+
+CREATE TABLE columns (
+    id SERIAL PRIMARY KEY,
+    category VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+);
+
+INSERT INTO columns (category) VALUES ('Backlog'), ('To Do'), ('In Progress'), ('Done');
