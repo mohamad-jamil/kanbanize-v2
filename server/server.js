@@ -29,6 +29,19 @@ app.get("/tasks/:id", async (req, res) => {
   }
 });
 
+// GET: get next ID
+app.get("/next-id", async (req, res) => {
+  try {
+    const response = await pool.query(
+      "SELECT last_value + 1 AS next_id FROM tasks_id_seq;"
+    );
+
+    res.json(response.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 // POST: add new task
 app.post("/tasks", async (req, res) => {
   try {
