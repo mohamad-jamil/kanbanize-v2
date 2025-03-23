@@ -99,6 +99,21 @@ app.get("/columns", async (req, res) => {
   }
 });
 
+// POST: add new column
+app.post("/columns", async (req, res) => {
+  try {
+    const { category } = req.body;
+    const response = await pool.query(
+      "INSERT INTO columns (category) VALUES ($1) RETURNING *",
+      [category]
+    );
+
+    res.json(response.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server is listening on port 5000.");
 });
