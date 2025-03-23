@@ -1,31 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import Header from "./components/Header";
 import Column from "./components/Column";
 import Footer from "./components/Footer";
 import AddTaskModal from "./components/AddTaskModal";
 
+import { DataContext } from "./context/dataContext";
+
 function App() {
   const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
-
-  const [columns, setColumns] = useState([
-    "Backlog",
-    "To Do",
-    "In Progress",
-    "Done",
-  ]);
-
-  const [tasks, setTasks] = useState([]);
-
-  const getTasks = async () => {
-    const res = await fetch("http://localhost:5000/tasks");
-    const resJson = await res.json();
-    setTasks(resJson);
-  };
-
-  useEffect(() => {
-    getTasks();
-  }, []);
+  const { tasks, columns } = useContext(DataContext);
 
   return (
     <>
