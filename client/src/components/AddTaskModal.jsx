@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function AddTaskModal({
-  setAddTaskModalOpen,
-  columns,
-  tasks,
-  setTasks,
-}) {
+export default function AddTaskModal({ setAddTaskModalOpen, columns }) {
   const [column, setColumn] = useState("Backlog");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [nextId, setNextId] = useState("ID-XXXX");
+
+  useEffect(() => {
+    const getId = async () => {
+      const res = await fetch("http://localhost:5000/next-id");
+      const resJson = await res.json();
+      const formatted = `ID-${resJson.next_id.toString().padStart(4, "0")}`;
+      setNextId(formatted);
+    };
+
+    getId();
+  }, []);
 
   const handleSubmit = async (e) => {
     await fetch("http://localhost:5000/tasks", {
@@ -48,7 +55,7 @@ export default function AddTaskModal({
             <input
               type="text"
               name="id"
-              // value={getId()}
+              value={nextId}
               disabled
               className="mt-1 p-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"
             />
