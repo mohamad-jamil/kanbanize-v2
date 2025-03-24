@@ -24,7 +24,7 @@ function App() {
           {columns.map((column, index) => (
             <Column
               key={index}
-              columnName={column.category}
+              column={column}
               tasks={tasks.filter(
                 (task) =>
                   task.category.toLowerCase() === column.category.toLowerCase()

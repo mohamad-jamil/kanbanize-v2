@@ -27,7 +27,7 @@ const DataProvider = ({ children }) => {
   }, []);
 
   return (
-    <DataContext.Provider value={{ tasks, columns }}>
+    <DataContext.Provider value={{ tasks, columns, setColumns }}>
       {children}
     </DataContext.Provider>
   );
