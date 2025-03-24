@@ -114,6 +114,21 @@ app.post("/columns", async (req, res) => {
   }
 });
 
+// DELETE: delete specific column
+app.delete("/columns/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await pool.query(
+      "DELETE FROM columns WHERE id=$1 RETURNING *",
+      [id]
+    );
+
+    res.json(response.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server is listening on port 5000.");
 });
