@@ -114,6 +114,22 @@ app.post("/columns", async (req, res) => {
   }
 });
 
+// PUT: edit specific column
+app.put("/columns/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { category } = req.body;
+    const response = await pool.query(
+      "UPDATE columns SET category=$1 WHERE id=$2 RETURNING *",
+      [category, id]
+    );
+
+    res.json(response.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 // DELETE: delete specific column
 app.delete("/columns/:id", async (req, res) => {
   try {
