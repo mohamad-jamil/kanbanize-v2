@@ -113,6 +113,9 @@ export default function EditTaskModal({ task, setEditTaskModalOpen }) {
               className="mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
+          <p className="text-sm font-semibold">
+            Created on {new Date(task.created_at).toLocaleString()}
+          </p>
           <button
             onClick={handleConfirmEdit}
             className="border px-5 py-2 mt-2 rounded-full cursor-pointer text-white font-bold bg-[#1868db] hover:bg-[#1868db] transition-all duration-300 ease-in-out"
