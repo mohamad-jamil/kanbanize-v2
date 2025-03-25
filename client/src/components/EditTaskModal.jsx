@@ -8,7 +8,9 @@ export default function EditTaskModal({ task, setEditTaskModalOpen }) {
 
   const { setTasks, columns } = useContext(DataContext);
 
-  const handleConfirmEdit = async () => {
+  const handleConfirmEdit = async (e) => {
+    e.preventDefault();
+
     await fetch(`http://localhost:5000/tasks/${task.id}`, {
       method: "PUT",
       headers: {
@@ -28,7 +30,7 @@ export default function EditTaskModal({ task, setEditTaskModalOpen }) {
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-black/50">
       <div className="bg-white w-1/6 rounded-md">
         <div className="flex items-center justify-between p-4">
-          <h2 className="font-bold">Add Task</h2>
+          <h2 className="font-bold">Edit Task</h2>
           <button onClick={() => setEditTaskModalOpen(false)}>
             <img
               src="/cross.svg"
@@ -60,7 +62,8 @@ export default function EditTaskModal({ task, setEditTaskModalOpen }) {
             </label>
             <select
               name="category"
-              onChange={(e) => setCategory(e.target.value)}
+              value={category.replace(/\b\w/g, (char) => char.toUpperCase())}
+              onChange={(e) => setCategory(e.target.value.toLowerCase())}
               className="mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               {columns.map((column) => (
@@ -105,7 +108,7 @@ export default function EditTaskModal({ task, setEditTaskModalOpen }) {
             onClick={handleConfirmEdit}
             className="border px-5 py-2 mt-2 rounded-full cursor-pointer text-white font-bold bg-[#1868db] hover:bg-[#1868db] transition-all duration-300 ease-in-out"
           >
-            Add task
+            Confirm
           </button>
         </form>
       </div>
