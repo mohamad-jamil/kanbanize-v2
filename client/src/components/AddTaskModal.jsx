@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { DataContext } from "../context/dataContext";
 
 export default function AddTaskModal({ setAddTaskModalOpen, columns }) {
   const [column, setColumn] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [nextId, setNextId] = useState("ID-XXXX");
+
+  const { setTasks } = useContext(DataContext);
 
   useEffect(() => {
     const getId = async () => {
@@ -18,6 +21,11 @@ export default function AddTaskModal({ setAddTaskModalOpen, columns }) {
   }, []);
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const nextTaskId = await fetch("http://localhost:5000/next-task-id");
+    const nextTaskIdJson = await nextTaskId.json();
+
     await fetch("http://localhost:5000/tasks", {
       method: "POST",
       headers: {
@@ -29,6 +37,12 @@ export default function AddTaskModal({ setAddTaskModalOpen, columns }) {
         description: description,
       }),
     });
+
+    const newTask = await fetch(
+      `http://localhost:5000/tasks/${nextTaskIdJson.next_id}`
+    );
+    const newTaskJson = await newTask.json();
+    setTasks((prevTasks) => [...prevTasks, newTaskJson]);
 
     setAddTaskModalOpen(false);
   };
