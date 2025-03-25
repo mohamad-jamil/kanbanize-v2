@@ -67,8 +67,12 @@ export default function EditTaskModal({ task, setEditTaskModalOpen }) {
             </label>
             <select
               name="category"
-              value={category.replace(/\b\w/g, (char) => char.toUpperCase())}
-              onChange={(e) => setCategory(e.target.value.toLowerCase())}
+              value={columns.find((col) => col.id === category).category}
+              onChange={(e) =>
+                setCategory(
+                  columns.find((col) => col.category === e.target.value).id
+                )
+              }
               className="mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               {columns.map((column) => (

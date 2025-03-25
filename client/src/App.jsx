@@ -25,10 +25,7 @@ function App() {
             <Column
               key={index}
               column={column}
-              tasks={tasks.filter(
-                (task) =>
-                  task.category.toLowerCase() === column.category.toLowerCase()
-              )}
+              tasks={tasks.filter((task) => task.category === column.id)}
             />
           ))}
         </div>

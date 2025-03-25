@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export default function AddTaskModal({ setAddTaskModalOpen, columns }) {
-  const [column, setColumn] = useState("Backlog");
+  const [column, setColumn] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [nextId, setNextId] = useState("ID-XXXX");
@@ -24,7 +24,7 @@ export default function AddTaskModal({ setAddTaskModalOpen, columns }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        category: column.toLowerCase(),
+        category: columns.find((col) => col.category === column).id,
         title: title,
         description: description,
       }),
