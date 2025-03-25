@@ -23,6 +23,11 @@ export default function EditTaskModal({ task, setEditTaskModalOpen }) {
       }),
     });
 
+    setTasks((prevTasks) => [
+      ...prevTasks.filter((prevTask) => prevTask.id !== task.id),
+      { ...task, category, title, description },
+    ]);
+
     setEditTaskModalOpen(false);
   };
 
