@@ -8,7 +8,7 @@ export default function AddTaskModal({ setAddTaskModalOpen, columns }) {
 
   useEffect(() => {
     const getId = async () => {
-      const res = await fetch("http://localhost:5000/next-id");
+      const res = await fetch("http://localhost:5000/next-task-id");
       const resJson = await res.json();
       const formatted = `ID-${resJson.next_id.toString().padStart(4, "0")}`;
       setNextId(formatted);

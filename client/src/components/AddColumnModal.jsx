@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { DataContext } from "../context/dataContext";
 
 export default function AddColumnModal({ setAddColumnModalOpen }) {
   const [category, setCategory] = useState("");
 
+  const { columns, setColumns } = useContext(DataContext);
+
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const nextColId = await fetch("http://localhost:5000/next-column-id");
+    const nextColIdJson = await nextColId.json();
+
     await fetch("http://localhost:5000/columns", {
       method: "POST",
       headers: {
@@ -13,6 +21,12 @@ export default function AddColumnModal({ setAddColumnModalOpen }) {
         category: category,
       }),
     });
+
+    const newColumn = await fetch(
+      `http://localhost:5000/columns/${nextColIdJson.next_id}`
+    );
+    const newColumnJson = await newColumn.json();
+    setColumns((prevColumns) => [...prevColumns, newColumnJson]);
 
     setAddColumnModalOpen(false);
   };

@@ -29,8 +29,8 @@ app.get("/tasks/:id", async (req, res) => {
   }
 });
 
-// GET: get next ID
-app.get("/next-id", async (req, res) => {
+// GET: get next task ID
+app.get("/next-task-id", async (req, res) => {
   try {
     const response = await pool.query(
       "SELECT last_value + 1 AS next_id FROM tasks_id_seq;"
@@ -94,6 +94,33 @@ app.get("/columns", async (req, res) => {
     const response = await pool.query("SELECT * FROM columns ORDER BY id");
 
     res.json(response.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// GET: get specific column
+app.get("/columns/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await pool.query("SELECT * FROM columns WHERE id=$1", [
+      id,
+    ]);
+
+    res.json(response.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// GET: get next column ID
+app.get("/next-column-id", async (req, res) => {
+  try {
+    const response = await pool.query(
+      "SELECT last_value + 1 AS next_id FROM columns_id_seq;"
+    );
+
+    res.json(response.rows[0]);
   } catch (err) {
     console.error(err.message);
   }
