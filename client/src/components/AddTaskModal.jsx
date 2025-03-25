@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../context/dataContext";
 
 export default function AddTaskModal({ setAddTaskModalOpen, columns }) {
-  const [column, setColumn] = useState("");
+  const [column, setColumn] = useState("Backlog");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [nextId, setNextId] = useState("ID-XXXX");
